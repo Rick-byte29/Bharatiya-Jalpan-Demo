@@ -70,9 +70,14 @@
 
   document.querySelectorAll('.sweet-image img, .hero-card img, .moments-photo img, .visual-break img').forEach(img => {
     img.addEventListener('error', () => {
+      if (!img.dataset.fallbackTried) {
+        img.dataset.fallbackTried = '1';
+        img.src = 'https://images.pexels.com/photos/18488311/pexels-photo-18488311.jpeg?auto=compress&cs=tinysrgb&w=1400';
+        return;
+      }
       img.style.display = 'none';
       img.parentElement?.classList.add('image-fallback');
-    }, { once: true });
+    });
   });
 
   const pointerFine = window.matchMedia('(pointer:fine)').matches;
