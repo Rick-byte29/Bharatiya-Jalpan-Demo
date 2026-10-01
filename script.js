@@ -395,3 +395,19 @@
     if (i > 2 && !img.hasAttribute('loading')) img.loading = 'lazy';
   });
 })();
+/* REFERENCE DESIGN V6 */
+(() => {
+  const grid = document.getElementById('sweetGrid');
+  if (!grid) return;
+  const shell = grid.closest('.sweet-carousel-shell');
+  const prev = shell?.querySelector('.sweet-slider-nav.prev');
+  const next = shell?.querySelector('.sweet-slider-nav.next');
+  const step = () => Math.min(grid.clientWidth * .82, 620);
+  prev?.addEventListener('click', () => grid.scrollBy({left:-step(),behavior:'smooth'}));
+  next?.addEventListener('click', () => grid.scrollBy({left:step(),behavior:'smooth'}));
+
+  // Keep the horizontal catalogue feeling polished after filter changes.
+  document.querySelectorAll('.filter').forEach(btn => btn.addEventListener('click', () => {
+    requestAnimationFrame(() => grid.scrollTo({left:0,behavior:'smooth'}));
+  }));
+})();
