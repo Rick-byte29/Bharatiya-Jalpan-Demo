@@ -40,13 +40,21 @@
 </head>
 <body>
   <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader-feather">
-      <span class="eye eye-a"></span><span class="eye eye-b"></span><span class="eye eye-c"></span>
+    <div class="loader-sweet-stage">
+      <div class="loader-sweet-orbit" aria-hidden="true"></div>
+      <div class="loader-sweet-frame">
+        <img id="loaderSweetImage"
+             src="https://static.toiimg.com/thumb/53099699.cms?height=900&width=1200"
+             alt=""
+             referrerpolicy="no-referrer" />
+      </div>
+      <div class="loader-sweet-name" id="loaderSweetName">Jalebi</div>
     </div>
     <img src="assets/bharatiya-jalpan-logo.jpg" alt="" class="loader-logo" />
-    <div class="loader-copy">Sweetness, since 1985</div>
+    <div class="loader-copy">A little sweetness is loading…</div>
+    <div class="loader-dots" aria-hidden="true"><span></span><span></span><span></span></div>
   </div>
-
+  
   <div class="progress" id="progress"></div>
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
@@ -190,98 +198,194 @@
         <article class="sweet-card reveal tilt-card" data-category="nutty festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://www.ruchiskitchen.com/wp-content/uploads/2015/01/Gajar-ka-halwa-01.jpg" alt="Kaju Katli" loading="lazy" /></div>
           <div class="sweet-meta"><span>Cashew classic</span><span>01</span></div><h3>Kaju Katli</h3><p>Silky cashew diamonds with the clean richness that makes one piece become three.</p>
+          <div class="sweet-card-actions" data-sweet="Kaju Katli">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488302/pexels-photo-18488302.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Motichoor Ladoo" loading="lazy" /></div>
           <div class="sweet-meta"><span>Festive icon</span><span>02</span></div><h3>Motichoor Ladoo</h3><p>Fine golden pearls gathered into the quintessential celebration sweet.</p>
+          <div class="sweet-card-actions" data-sweet="Motichoor Ladoo">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk syrupy">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/37133961/pexels-photo-37133961.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Rasgulla" loading="lazy" /></div>
           <div class="sweet-meta"><span>Soft & syrupy</span><span>03</span></div><h3>Rasgulla</h3><p>Cloud-soft chhena spheres resting in a bright, delicate syrup.</p>
+          <div class="sweet-card-actions" data-sweet="Rasgulla">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="syrupy milk">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/37294501/pexels-photo-37294501.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Gulab Jamun" loading="lazy" /></div>
           <div class="sweet-meta"><span>Warm favourite</span><span>04</span></div><h3>Gulab Jamun</h3><p>Deep caramel notes, tender khoya and fragrant syrup in every spoonful.</p>
+          <div class="sweet-card-actions" data-sweet="Gulab Jamun">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card feature" data-category="syrupy festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/36021117/pexels-photo-36021117.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Jalebi" loading="lazy" /></div>
           <div class="sweet-meta"><span>Fresh favourite</span><span>05</span></div><h3>Jalebi</h3><p>Crisp spirals, bright saffron colour and syrup that crackles before it melts.</p>
+          <div class="sweet-card-actions" data-sweet="Jalebi">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/8819843/pexels-photo-8819843.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Rasmalai" loading="lazy" /></div>
           <div class="sweet-meta"><span>Royal creaminess</span><span>06</span></div><h3>Rasmalai</h3><p>Soft chhena in aromatic milk, finished with saffron and nuts.</p>
+          <div class="sweet-card-actions" data-sweet="Rasmalai">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488320/pexels-photo-18488320.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Sandesh" loading="lazy" /></div>
           <div class="sweet-meta"><span>Bengal favourite</span><span>07</span></div><h3>Sandesh</h3><p>Delicate chhena sweetness with a clean, melt-away finish.</p>
+          <div class="sweet-card-actions" data-sweet="Sandesh">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488306/pexels-photo-18488306.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Kalakand" loading="lazy" /></div>
           <div class="sweet-meta"><span>Milk-rich</span><span>08</span></div><h3>Kalakand</h3><p>Soft, grainy milk fudge with a slow-cooked richness.</p>
+          <div class="sweet-card-actions" data-sweet="Kalakand">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/5864767/pexels-photo-5864767.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Milk Cake" loading="lazy" /></div>
           <div class="sweet-meta"><span>Caramel milk</span><span>09</span></div><h3>Milk Cake</h3><p>Dense, milky and beautifully caramelised through the centre.</p>
+          <div class="sweet-card-actions" data-sweet="Milk Cake">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488300/pexels-photo-18488300.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Kesar Peda" loading="lazy" /></div>
           <div class="sweet-meta"><span>Saffron-kissed</span><span>10</span></div><h3>Kesar Peda</h3><p>Velvety milk sweetness lifted with saffron and cardamom.</p>
+          <div class="sweet-card-actions" data-sweet="Kesar Peda">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="festive nutty">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/32044742/pexels-photo-32044742.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Soan Papdi" loading="lazy" /></div>
           <div class="sweet-meta"><span>Flaky classic</span><span>11</span></div><h3>Soan Papdi</h3><p>Feathery layers that crumble, dissolve and disappear almost instantly.</p>
+          <div class="sweet-card-actions" data-sweet="Soan Papdi">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="nutty festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488312/pexels-photo-18488312.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Besan Ladoo" loading="lazy" /></div>
           <div class="sweet-meta"><span>Ghee-roasted</span><span>12</span></div><h3>Besan Ladoo</h3><p>Roasted gram flour, ghee and cardamom rolled into pure nostalgia.</p>
+          <div class="sweet-card-actions" data-sweet="Besan Ladoo">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="nutty festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488309/pexels-photo-18488309.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Kaju Roll" loading="lazy" /></div>
           <div class="sweet-meta"><span>Nutty indulgence</span><span>13</span></div><h3>Kaju Roll</h3><p>Cashew-rich rolls with festive polish and a luxurious bite.</p>
+          <div class="sweet-card-actions" data-sweet="Kaju Roll">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="nutty">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488299/pexels-photo-18488299.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Badam Barfi" loading="lazy" /></div>
           <div class="sweet-meta"><span>Almond rich</span><span>14</span></div><h3>Badam Barfi</h3><p>Dense almond sweetness with a refined, nut-forward finish.</p>
+          <div class="sweet-card-actions" data-sweet="Badam Barfi">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk syrupy">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/8788869/pexels-photo-8788869.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Malai Cham Cham" loading="lazy" /></div>
           <div class="sweet-meta"><span>Soft & creamy</span><span>15</span></div><h3>Malai Cham Cham</h3><p>Supple chhena, soft sweetness and a creamy festive finish.</p>
+          <div class="sweet-card-actions" data-sweet="Malai Cham Cham">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk syrupy">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/35921862/pexels-photo-35921862.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Rajbhog" loading="lazy" /></div>
           <div class="sweet-meta"><span>Celebration bowl</span><span>16</span></div><h3>Rajbhog</h3><p>A generous, saffron-toned chhena sweet made for grand occasions.</p>
+          <div class="sweet-card-actions" data-sweet="Rajbhog">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="syrupy festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488314/pexels-photo-18488314.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Imarti" loading="lazy" /></div>
           <div class="sweet-meta"><span>Crunch & syrup</span><span>17</span></div><h3>Imarti</h3><p>Intricate rings with a crisp shell and syrup-soaked centre.</p>
+          <div class="sweet-card-actions" data-sweet="Imarti">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="festive syrupy">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/34143446/pexels-photo-34143446.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Balushahi" loading="lazy" /></div>
           <div class="sweet-meta"><span>Flaky & glazed</span><span>18</span></div><h3>Balushahi</h3><p>Crumbly, layered richness finished in a translucent sugar glaze.</p>
+          <div class="sweet-card-actions" data-sweet="Balushahi">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="festive nutty">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488315/pexels-photo-18488315.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Gujiya" loading="lazy" /></div>
           <div class="sweet-meta"><span>Festival pastry</span><span>19</span></div><h3>Gujiya</h3><p>Golden pastry pockets with a rich, celebratory filling.</p>
+          <div class="sweet-card-actions" data-sweet="Gujiya">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card feature" data-category="festive milk">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/8819258/pexels-photo-8819258.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Ghewar" loading="lazy" /></div>
           <div class="sweet-meta"><span>Festive showstopper</span><span>20</span></div><h3>Ghewar</h3><p>Honeycomb crispness, creamy toppings and a plate made for the centre of the table.</p>
+          <div class="sweet-card-actions" data-sweet="Ghewar">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="syrupy festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/5878321/pexels-photo-5878321.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Malpua" loading="lazy" /></div>
           <div class="sweet-meta"><span>Pan-fried classic</span><span>21</span></div><h3>Malpua</h3><p>Soft-centred, caramel-edged and finished with fragrant syrup.</p>
+          <div class="sweet-card-actions" data-sweet="Malpua">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="nutty festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/18488306/pexels-photo-18488306.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Mysore Pak" loading="lazy" /></div>
           <div class="sweet-meta"><span>Ghee-rich</span><span>22</span></div><h3>Mysore Pak</h3><p>Bold ghee richness with a texture that ranges from fudgy to delicately crumbly.</p>
+          <div class="sweet-card-actions" data-sweet="Mysore Pak">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="festive nutty">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/8887051/pexels-photo-8887051.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Modak" loading="lazy" /></div>
           <div class="sweet-meta"><span>Festive favourite</span><span>23</span></div><h3>Modak</h3><p>A beloved celebratory sweet with a distinctive crown-shaped form.</p>
+          <div class="sweet-card-actions" data-sweet="Modak">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
         <article class="sweet-card reveal tilt-card" data-category="milk nutty festive">
           <div class="sweet-image"><img referrerpolicy="no-referrer" src="https://images.pexels.com/photos/20446409/pexels-photo-20446409.jpeg?auto=compress&cs=tinysrgb&w=1400" alt="Gajar Halwa" loading="lazy" /></div>
           <div class="sweet-meta"><span>Winter comfort</span><span>24</span></div><h3>Gajar Halwa</h3><p>Slow-cooked carrot, milk, ghee and nuts — warm, rich and deeply familiar.</p>
+          <div class="sweet-card-actions" data-sweet="Gajar Halwa">
+            <button class="sweet-quick" type="button">Quick view</button>
+            <button class="sweet-add" type="button">Add to box</button>
+          </div>
         </article>
       </div>
 
@@ -454,6 +558,8 @@
     <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.63c-.26-.13-1.53-.75-1.77-.84-.24-.09-.41-.13-.59.13-.17.26-.68.84-.83 1.01-.15.17-.3.2-.56.07-.26-.13-1.09-.4-2.08-1.28-.77-.69-1.29-1.54-1.44-1.8-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.46.13-.15.17-.26.26-.43.09-.17.04-.33-.02-.46-.07-.13-.59-1.42-.81-1.95-.21-.51-.43-.44-.59-.45h-.5c-.17 0-.46.07-.7.33-.24.26-.92.9-.92 2.19s.94 2.54 1.07 2.71c.13.17 1.84 2.81 4.47 3.94.62.27 1.11.43 1.49.55.63.2 1.2.17 1.65.1.5-.07 1.53-.63 1.75-1.23.22-.61.22-1.12.15-1.23-.06-.11-.24-.17-.5-.3zM16.04 3.2c-7.02 0-12.72 5.7-12.72 12.72 0 2.24.58 4.43 1.69 6.36L3.22 28.8l6.68-1.75a12.68 12.68 0 0 0 6.14 1.56h.01c7.02 0 12.72-5.7 12.72-12.72S23.06 3.2 16.04 3.2zm0 23.27h-.01a10.54 10.54 0 0 1-5.37-1.47l-.38-.23-3.96 1.04 1.06-3.86-.25-.4a10.53 10.53 0 0 1-1.62-5.63c0-5.82 4.74-10.56 10.57-10.56 5.82 0 10.56 4.74 10.56 10.56 0 5.83-4.74 10.56-10.6 10.56z"/></svg>
     <span>Order</span>
   </a>
+
+  <div class="site-toast" id="siteToast" role="status" aria-live="polite"></div>
 
   <div class="mobile-actionbar" aria-label="Quick contact actions">
     <a href="tel:+919101035255">Call</a>
