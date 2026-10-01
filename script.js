@@ -124,12 +124,44 @@
   }
 })();
 
-/* PREMIUM EXPERIENCE V3 */
+
+/* PREMIUM EXPERIENCE V4 */
 (() => {
   const $ = (s, root=document) => root.querySelector(s);
   const $$ = (s, root=document) => [...root.querySelectorAll(s)];
 
-  // Seasonal campaign copy; presentation only, not a price/availability claim.
+  // ----- Loader sweet carousel -----
+  const loaderSweet = $('#loaderSweetImage');
+  const loaderSweetName = $('#loaderSweetName');
+  const loaderSlides = [
+    ['Jalebi','https://static.toiimg.com/thumb/53099699.cms?height=900&width=1200'],
+    ['Kaju Katli','https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy%2Cf_auto%2Cq_auto%2Cw_900%2Ch_700%2Cc_fill/FOOD_CATALOG/IMAGES/CMS/2024/4/6/9d12672f-73d0-4954-9781-83f562e9e989_2d6c2034-18e9-43cf-8923-2cfd0a2b5c52.jpg'],
+    ['Gulab Jamun','https://prashantcorner.com/cdn/shop/files/DakGulabJamunSR-2.jpg?v=1718083866'],
+    ['Motichoor Ladoo','https://lynkfoods.com/cdn/shop/articles/Motichoor_Ladoo_blog_2dd47e82-d240-4dc2-8263-1b103febfe17.jpg?v=1763378898'],
+    ['Rasgulla','https://assets.telegraphindia.com/abp/2025/Sep/1757071088_roso.jpg']
+  ];
+  loaderSlides.slice(1).forEach(([,src]) => { const pre = new Image(); pre.src = src; });
+  let loaderIndex = 0;
+  let loaderTimer = null;
+  if (loaderSweet && loaderSweetName && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    loaderTimer = setInterval(() => {
+      loaderIndex = (loaderIndex + 1) % loaderSlides.length;
+      const [name, src] = loaderSlides[loaderIndex];
+      loaderSweet.classList.add('is-changing');
+      loaderSweetName.classList.add('is-changing');
+      setTimeout(() => {
+        loaderSweet.src = src;
+        loaderSweetName.textContent = name;
+        loaderSweet.classList.remove('is-changing');
+        loaderSweetName.classList.remove('is-changing');
+      }, 120);
+    }, 380);
+    const stopLoaderCarousel = () => { if (loaderTimer) clearInterval(loaderTimer); };
+    window.addEventListener('load', () => setTimeout(stopLoaderCarousel, 2600), {once:true});
+    setTimeout(stopLoaderCarousel, 3400);
+  }
+
+  // ----- Seasonal campaign -----
   const seasonal = $('#seasonalBadge');
   if (seasonal) {
     const m = new Date().getMonth();
@@ -151,53 +183,66 @@
     seasonal.innerHTML = '<span>'+label+'</span><strong>'+copy+'</strong>';
   }
 
-  // Add rich action controls to every mithai card without bloating markup.
-  const cards = $$('.sweet-card');
-  cards.forEach(card => {
-    if ($('.sweet-card-actions', card)) return;
-    const name = $('h3', card)?.textContent.trim() || 'Mithai';
-    const actions = document.createElement('div');
-    actions.className = 'sweet-card-actions';
-    actions.innerHTML = '<button class="sweet-quick" type="button">Quick view</button><button class="sweet-add" type="button">Add to box</button>';
-    card.append(actions);
-    $('.sweet-quick', actions).addEventListener('click', () => openDrawer(card));
-    $('.sweet-add', actions).addEventListener('click', () => addSweet(name));
-  });
-
-  // Build-your-box.
+  // ----- Build your box -----
   let boxSize = 4;
   const selected = new Set();
+  const cards = $$('.sweet-card');
   const optionWrap = $('#builderOptions');
   const selectionWrap = $('#builderSelection');
   const count = $('#boxCount');
   const limit = $('#boxLimit');
   const progress = $('#builderProgress');
   const wa = $('#builderWhatsApp');
-
+  const toast = $('#siteToast');
   const names = cards.map(c => $('h3', c)?.textContent.trim()).filter(Boolean);
-  if (optionWrap) {
+
+  if (optionWrap && !optionWrap.children.length) {
     names.forEach((name, i) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'builder-option';
       b.dataset.name = name;
       b.innerHTML = '<small>'+String(i+1).padStart(2,'0')+'</small><strong>'+name+'</strong>';
-      b.addEventListener('click', () => selected.has(name) ? removeSweet(name) : addSweet(name));
       optionWrap.append(b);
     });
+  }
+
+  let toastTimer;
+  function showToast(message, actionLabel) {
+    if (!toast) return;
+    toast.innerHTML = '<span>'+message+'</span>' + (actionLabel ? '<button type="button">'+actionLabel+'</button>' : '');
+    toast.classList.add('is-showing');
+    const action = $('button', toast);
+    if (action) action.addEventListener('click', () => {
+      $('#boxbuilder')?.scrollIntoView({behavior:'smooth', block:'start'});
+      toast.classList.remove('is-showing');
+    }, {once:true});
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('is-showing'), 2600);
   }
 
   function syncBox() {
     if (count) count.textContent = selected.size;
     if (limit) limit.textContent = boxSize;
     if (progress) progress.style.width = Math.min(100, (selected.size / boxSize) * 100) + '%';
+
     $$('.builder-option').forEach(b => b.classList.toggle('is-selected', selected.has(b.dataset.name)));
+    $$('.sweet-card-actions').forEach(actions => {
+      const name = actions.dataset.sweet || $('h3', actions.closest('.sweet-card'))?.textContent.trim();
+      const add = $('.sweet-add', actions);
+      if (!add) return;
+      const active = selected.has(name);
+      add.classList.toggle('is-added', active);
+      add.textContent = active ? 'Added ✓' : 'Add to box';
+      add.setAttribute('aria-pressed', String(active));
+    });
+
     if (selectionWrap) {
       selectionWrap.innerHTML = selected.size
-        ? [...selected].map(n => '<span class="builder-chip">'+n+' ×</span>').join('')
+        ? [...selected].map(n => '<button class="builder-chip" type="button" data-remove="'+n.replace(/"/g,'&quot;')+'">'+n+' <span aria-hidden="true">×</span></button>').join('')
         : '<span>Your box is waiting.</span>';
-      $$('.builder-chip', selectionWrap).forEach((chip, i) => chip.addEventListener('click', () => removeSweet([...selected][i])));
     }
+
     if (wa) {
       const ready = selected.size > 0;
       wa.classList.toggle('is-disabled', !ready);
@@ -207,18 +252,67 @@
     }
   }
 
-  function addSweet(name) {
-    if (!name) return;
-    if (selected.has(name)) return;
+  function addSweet(name, {scroll=false}={}) {
+    if (!name) return false;
+    if (selected.has(name)) {
+      showToast(name+' is already in your box.', 'View box');
+      if (scroll) $('#boxbuilder')?.scrollIntoView({behavior:'smooth', block:'start'});
+      return true;
+    }
     if (selected.size >= boxSize) {
-      const builder = $('#boxbuilder');
-      builder?.scrollIntoView({behavior:'smooth', block:'center'});
-      builder?.animate([{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:260});
+      showToast('Your '+boxSize+'-variety box is full.', 'View box');
+      if (scroll) $('#boxbuilder')?.scrollIntoView({behavior:'smooth', block:'start'});
+      return false;
+    }
+    selected.add(name);
+    syncBox();
+    showToast(name+' added to your box.', 'View box');
+    if (scroll) $('#boxbuilder')?.scrollIntoView({behavior:'smooth', block:'start'});
+    return true;
+  }
+
+  function removeSweet(name) {
+    if (!selected.has(name)) return;
+    selected.delete(name);
+    syncBox();
+    showToast(name+' removed from your box.');
+  }
+
+  // Single delegated click listener: reliable for desktop/mobile and future cards.
+  document.addEventListener('click', (e) => {
+    const addBtn = e.target.closest('.sweet-add');
+    if (addBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = addBtn.closest('.sweet-card');
+      const name = card?.querySelector('h3')?.textContent.trim();
+      if (selected.has(name)) removeSweet(name); else addSweet(name);
       return;
     }
-    selected.add(name); syncBox();
-  }
-  function removeSweet(name){ selected.delete(name); syncBox(); }
+
+    const quickBtn = e.target.closest('.sweet-quick');
+    if (quickBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = quickBtn.closest('.sweet-card');
+      if (card) openDrawer(card);
+      return;
+    }
+
+    const option = e.target.closest('.builder-option');
+    if (option) {
+      e.preventDefault();
+      const name = option.dataset.name;
+      if (selected.has(name)) removeSweet(name); else addSweet(name);
+      return;
+    }
+
+    const chip = e.target.closest('.builder-chip[data-remove]');
+    if (chip) {
+      e.preventDefault();
+      removeSweet(chip.dataset.remove);
+    }
+  });
 
   $$('.box-size').forEach(b => b.addEventListener('click', () => {
     $$('.box-size').forEach(x => x.classList.remove('active'));
@@ -226,37 +320,60 @@
     boxSize = Number(b.dataset.size || 4);
     while (selected.size > boxSize) selected.delete([...selected].pop());
     syncBox();
+    showToast('Box size changed to '+boxSize+' varieties.');
   }));
-  $('#clearBox')?.addEventListener('click', () => { selected.clear(); syncBox(); });
+
+  $('#clearBox')?.addEventListener('click', () => {
+    selected.clear();
+    syncBox();
+    showToast('Your box has been cleared.');
+  });
+
   syncBox();
 
-  // Sweet quick-view drawer.
+  // ----- Sweet quick-view drawer -----
   const drawer = $('#sweetDrawer');
   let currentSweet = '';
+
   function openDrawer(card) {
-    if (!drawer) return;
+    if (!drawer || !card) return;
     currentSweet = $('h3', card)?.textContent.trim() || 'Mithai';
     const image = $('img', card);
-    $('#drawerTitle').textContent = currentSweet;
-    $('#drawerDescription').textContent = $('p', card)?.textContent.trim() || '';
-    $('#drawerImage').src = image?.currentSrc || image?.src || '';
-    $('#drawerImage').alt = currentSweet;
-    $('#drawerWhatsApp').href = 'https://wa.me/919101035255?text='+encodeURIComponent('Namaste Bharatiya Jalpan, is '+currentSweet+' available today?');
+    const title = $('#drawerTitle');
+    const desc = $('#drawerDescription');
+    const drawerImg = $('#drawerImage');
+    const drawerWa = $('#drawerWhatsApp');
+
+    if (title) title.textContent = currentSweet;
+    if (desc) desc.textContent = $('p', card)?.textContent.trim() || '';
+    if (drawerImg) {
+      drawerImg.src = image?.currentSrc || image?.src || '';
+      drawerImg.alt = currentSweet;
+    }
+    if (drawerWa) drawerWa.href = 'https://wa.me/919101035255?text='+encodeURIComponent('Namaste Bharatiya Jalpan, is '+currentSweet+' available today?');
+
     drawer.classList.add('is-open');
     drawer.setAttribute('aria-hidden','false');
     document.body.classList.add('drawer-open');
     $('.drawer-close', drawer)?.focus();
   }
-  function closeDrawer(){
+
+  function closeDrawer() {
     drawer?.classList.remove('is-open');
     drawer?.setAttribute('aria-hidden','true');
     document.body.classList.remove('drawer-open');
   }
-  $$('[data-drawer-close]').forEach(b => b.addEventListener('click', closeDrawer));
-  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
-  $('#drawerAddBox')?.addEventListener('click', () => { addSweet(currentSweet); closeDrawer(); $('#boxbuilder')?.scrollIntoView({behavior:'smooth'}); });
 
-  // Active section state in nav.
+  $$('[data-drawer-close]').forEach(b => b.addEventListener('click', closeDrawer));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+  $('#drawerAddBox')?.addEventListener('click', () => {
+    addSweet(currentSweet);
+    closeDrawer();
+    $('#boxbuilder')?.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  // ----- Active nav state -----
   const navLinks = $$('.nav a[href^="#"]').filter(a => a.getAttribute('href') !== '#top');
   if ('IntersectionObserver' in window) {
     const sectionObserver = new IntersectionObserver(entries => {
@@ -265,13 +382,14 @@
         navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === '#'+entry.target.id));
       });
     }, {rootMargin:'-35% 0px -55% 0px', threshold:0});
+
     navLinks.forEach(a => {
       const target = $(a.getAttribute('href'));
       if (target) sectionObserver.observe(target);
     });
   }
 
-  // Delivery/performance hints.
+  // ----- Delivery/performance hints -----
   $$('img').forEach((img, i) => {
     img.decoding = 'async';
     if (i > 2 && !img.hasAttribute('loading')) img.loading = 'lazy';
